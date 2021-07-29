@@ -1,0 +1,52 @@
+----- modelo tradicional -----
+
+Login do Administrador
+
+Pré-condições:
+Deve ter um usuário adminstrador cadastrado no sistema
+
+admin@bodytest.com
+pwd123
+
+Steps:
+Acessar o sistema bodytest na URL: https://bodytest-web-george.herokuapp.com
+Resultado: deve acessar a página de login com os campos email e senha
+
+Preencher o campo email com o email da pré-condição
+Resultado: campo aceita a entrada de dados
+
+Preencher o campo senha com a senha da pré-condição
+Resultado: campo aceita a entrada de dados
+
+Clicar no botão Entrar
+Resultado: deve redirecionar para a área logada e deve exibir o nome do usuário no menu de navegação
+
+
+
+----- modelo ágil / tópicos de teste -----
+obs.: caso uma história tem uma regra de negócio muito específica, aí sim, 
+estrutura o teste da forma tradicional
+
+Login do Administrador
+Login com email não cadastrado
+Login com senha incorreta
+Login sem informar email
+Login sem infromar a senha
+Login sem informar nenhum dos campos
+Login com email invalido
+
+
+
+----- utilizando BDD para escrever testes -----
+Dado que acesso a página de Login
+E preencho o campo email com "admin@bodytest.com"
+E preencho o campo senha com "pwd123"
+Quando clico em Entrar
+Então sou logado
+
+
+----- utilizando BDD para escrever testes pensando no processo -----
+Dado que acesso a página de login
+Quando submeto minhas credencias "admin@bodytest.com" e "pwd123"
+Então sou logado e vou para o dashboard
+

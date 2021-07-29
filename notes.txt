@@ -1,0 +1,102 @@
+Evaluate::           permite realizar operações aritméticas
+Fail::               falha o teste
+Log To Console::     imprime mensagem no Console
+
+## Variáveis
+*** Variables ***
+Simples = recebe apenas um valor
+${VARIAVEL_SIMPLES}  casa
+
+Lista = recebe mais de um valor
+@{LISTA}  banana  maçã  uva  Laranja  limão
+
+Dicionário = recebe chave / valor
+&{DICIONARIO}  carro=camaro   potencia=1000cv    cor=prata
+para acessar / imprimir o valor de uma chave
+Log To Console     ${DICIONARIO.carro}
+
+- Caso uma variável seja declarada neste espaço "*** Variables ***" ela fica disponível em toda a suíte
+- variável de escopo local do teste em qual foi declarada
+   Exemplo 01
+       ${idade}=          Set Variable    18
+       Log To Console     ${idade}
+
+- variável de suíte, qualquer teste pode utilizar
+  Set Suite Variable    ${idade}
+
+
+## Manipulando Listas
+-- interagindo com listas
+@{AVENGERS}     Iron Man    Hulk    Thor    Cap
+@{JUSTICE}      Superman    Wonder Woman    Batman    Arrow
+
+para acessar/imprimir um item de uma lista
+${AVENGERS[index]}
+
+- para renomear um item na lista
+${index}        Get Index From List     ${AVENGERS}       Iron Man
+Set List Value  ${AVENGERS}    ${index}      Homem de Ferro
+
+- para remover um item na lista
+${index_thor}      Get Index From List     @{AVENGERS}       Thor
+Remove From List   ${AVENGERS}             ${index_thor}
+
+- para unir listas
+
+${crossover}      Combine Lists       ${AVENGERS}       ${JUSTICE}
+
+
+## For
+*** Variables ***
+@{AVENGERS}    Hulk    Thor    Iron Man    Cap    Spiderman
+@{JUSTICE}     Superman    Wonder Woman    Batman    Arrow
+
+*** Test Cases ***
+Loop
+    Log To Console      \n
+    FOR    ${item}    IN    @{AVENGERS}
+        Log To Console      ${item}    
+    END
+
+Loop Com Condicional If
+    Log To Console      \n
+    FOR    ${item}    IN    @{AVENGERS}
+        IF    $item == 'Ironman'
+            Log To Console      ${item}        
+        END
+    END
+
+Loop Com Condicional keyword
+    [Tags]    thor
+
+    Log To Console      \n
+    FOR    ${item}    IN    @{AVENGERS}
+        Exit For Loop If    $item == 'Thor'
+        Log To Console      ${item}    
+    END
+
+Imprimir2
+    Log To Console    ${\n}
+    Log To Console    Percorrendo o dicionario utilizando um FOR e imprimindo cada campo
+    FOR    ${key}    IN       @{PESSOA.keys()}
+           ${valor}           Convert To Title Case       ${key}: ${PESSOA["${key}"]}
+           Log To Console     ${valor}
+    END
+
+
+
+
+
+## trabalhando com arquivos
+Get JSON
+    [Arguments]    ${file_name}
+    ${file}        Get File       ${EXECDIR}/resources/fixtures/${file_name}
+    ${super_var}   Evaluate       json.loads($file)    json
+    [Return]       ${super_var}
+
+03.heroku-cli
+- baixar e instalar o terminal no windows na página de deploy;
+- heroku --version: exibe a versão
+- heroku login: exibe uma mensagem para abrir o browser para efetuar o login
+  - clicar no botão de login, caso não faça automaticamente
+  - após efetuar o login, deve aparecer o seu email no terminal
