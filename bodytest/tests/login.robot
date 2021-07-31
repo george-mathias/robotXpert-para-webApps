@@ -3,74 +3,37 @@ Documentation        Suíte de testes da ação login
 
 Resource             ../resources/base.robot
 
+Test Setup           Go To Login Page
+Test Teardown        Close Browser
+
 *** Test Cases ***
 Login do Administrador
     [Tags]    1
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      admin@bodytest.com    pwd123
-       
-    Get Text     css=aside strong    should be    Administrador
-
-    Take Screenshot
+    Login With      admin@bodytest.com    pwd123       
+    User Should Be Logged In    Administrador
 
 Senha incorreta
     [Tags]    2
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      admin@bodytest.com    abc123
-    
-    Wait For Elements State    css=.Toastify__toast-body >> text=Usuário ou senha inválido    visible    5
-
-    Take Screenshot
+    Login With                admin@bodytest.com    abc123    
+    Toaster Text Should Be    Usuário ou senha inválido    
 
 Email incorreto
-    [Tags]    3
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      admin&bodytest.com    abd123
-
-    # Combinando estratégias de busca, espera e validação
-    Wait For Elements State    css=form span >> text=informe um e-mail válido    visible    5
-
-    Take Screenshot
+    [Tags]    3    
+    Login With                admin&bodytest.com    abd123
+    Alert Text Should Be      informe um e-mail válido
 
 Senha nao informada
     [Tags]    4
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      admin@bodytest.com    ${EMPTY}
-
-    # Combinando estratégias de busca, espera e validação
-    Wait For Elements State    css=form span >> text=A senha é obrigatória    visible    5
-
-    Take Screenshot
+    Login With                admin@bodytest.com    ${EMPTY}
+    Alert Text Should Be      A senha é obrigatória
 
 Email nao informado
     [Tags]    4
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      ${EMPTY}    pwd123
-
-    # Combinando estratégias de busca, espera e validação
-    Wait For Elements State    css=form span >> text=O e-mail é obrigatório    visible    5
-
-    Take Screenshot
+    Login With                  ${EMPTY}    pwd123
+    Alert Text Should Be        O e-mail é obrigatório
 
 Email e senha nao informados
     [Tags]    4
-    New Browser     chromium    false
-    New Page        https://bodytest-web-george.herokuapp.com
-
-    Login With      ${EMPTY}    ${EMPTY}
-
-    # Combinando estratégias de busca, espera e validação
-    Wait For Elements State    css=form span >> text=O e-mail é obrigatório    visible    5
-    Wait For Elements State    css=form span >> text=A senha é obrigatória     visible    5
-
-    Take Screenshot
+    Login With                  ${EMPTY}    ${EMPTY}
+    Alert Text Should Be        O e-mail é obrigatório
+    Alert Text Should Be        A senha é obrigatória

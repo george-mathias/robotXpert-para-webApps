@@ -3,4 +3,5 @@ Documentation        arquivo base do projeto de automação
 
 Library              Browser
 
-Resource             ./actions/Login.robot
+Resource             ./actions/auth.robot
+Resource             ./actions/nav.robot
