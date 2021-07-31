@@ -1,17 +1,16 @@
 *** Settings ***
 Documentation        Suíte de testes da ação login
 
-Library              Browser
+Resource             ../resources/base.robot
 
 *** Test Cases ***
 Login do Administrador
+    [Tags]    1
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]       admin@bodytest.com
-    Fill Text    css=input[id=password]    pwd123
-    Click        text=Entrar
-    
+    Login With      admin@bodytest.com    pwd123
+       
     Get Text     css=aside strong    should be    Administrador
 
     Take Screenshot
@@ -21,14 +20,8 @@ Senha incorreta
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]          admin@bodytest.com
-    Fill Text    css=input[id=password]       abc123
-    Click        text=Entrar
+    Login With      admin@bodytest.com    abc123
     
-    # Wait For Elements State    css=.Toastify__toast-body    visible    5
-    # Get Text                   css=.Toastify__toast-body    should be    Usuário ou senha inválido
-
-    # Combinando estratégias de busca, espera e validação
     Wait For Elements State    css=.Toastify__toast-body >> text=Usuário ou senha inválido    visible    5
 
     Take Screenshot
@@ -38,9 +31,7 @@ Email incorreto
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]          admin&bodytest.com
-    Fill Text    css=input[id=password]       abc123
-    Click        text=Entrar
+    Login With      admin&bodytest.com    abd123
 
     # Combinando estratégias de busca, espera e validação
     Wait For Elements State    css=form span >> text=informe um e-mail válido    visible    5
@@ -52,9 +43,7 @@ Senha nao informada
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]          admin@bodytest.com
-    Fill Text    css=input[id=password]       ${EMPTY}
-    Click        text=Entrar
+    Login With      admin@bodytest.com    ${EMPTY}
 
     # Combinando estratégias de busca, espera e validação
     Wait For Elements State    css=form span >> text=A senha é obrigatória    visible    5
@@ -66,9 +55,7 @@ Email nao informado
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]          ${EMPTY}
-    Fill Text    css=input[id=password]       pwd123
-    Click        text=Entrar
+    Login With      ${EMPTY}    pwd123
 
     # Combinando estratégias de busca, espera e validação
     Wait For Elements State    css=form span >> text=O e-mail é obrigatório    visible    5
@@ -80,9 +67,7 @@ Email e senha nao informados
     New Browser     chromium    false
     New Page        https://bodytest-web-george.herokuapp.com
 
-    Fill Text    css=input[id=email]          ${EMPTY}
-    Fill Text    css=input[id=password]       ${EMPTY}
-    Click        text=Entrar
+    Login With      ${EMPTY}    ${EMPTY}
 
     # Combinando estratégias de busca, espera e validação
     Wait For Elements State    css=form span >> text=O e-mail é obrigatório    visible    5
