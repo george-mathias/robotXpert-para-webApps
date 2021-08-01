@@ -4,6 +4,7 @@ Documentation        Suíte de testes da ação login
 Resource             ../resources/base.robot
 
 Suite Setup          Start Browser Session
+Test Teardown        Take Screenshot
 
 *** Test Cases ***
 Login do Administrador
@@ -11,12 +12,16 @@ Login do Administrador
     Go To Login Page
     Login With                  admin@bodytest.com    pwd123       
     User Should Be Logged In    Administrador
+    
+    [Teardown]                  Clear Local Storage And Take Screenshot
 
 Senha incorreta
     [Tags]    temp
     Go To Login Page
     Login With                admin@bodytest.com    abc123    
-    Toaster Text Should Be    Usuário ou senha inválido    
+    Toaster Text Should Be    Usuário ou senha inválido
+
+    [Teardown]                Thinking And Take Screenshot    1
 
 Email incorreto
     [Tags]    temp

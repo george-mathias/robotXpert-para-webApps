@@ -10,3 +10,13 @@ Resource             ./actions/nav.robot
 Start Browser Session
     New Browser     chromium    false
     New Page        about:blank
+
+Clear Local Storage And Take Screenshot
+    Take Screenshot
+    LocalStorage Clear
+
+Thinking And Take Screenshot
+    [Arguments]    ${timeout}
+
+    Sleep    ${timeout}
+    Take Screenshot
