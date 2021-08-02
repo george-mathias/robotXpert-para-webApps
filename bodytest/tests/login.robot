@@ -19,7 +19,15 @@ Senha incorreta
     [Tags]    temp
     Go To Login Page
     Login With                admin@bodytest.com    abc123    
-    Toaster Text Should Be    Usuário ou senha inválido
+    Toaster Text Should Be    Usuário e/ou senha inválidos.
+
+    [Teardown]                Thinking And Take Screenshot    1
+
+Email nao cadastrado
+    [Tags]    temp
+    Go To Login Page
+    Login With                fulano@bodytest.com    abc123    
+    Toaster Text Should Be    Usuário e/ou senha inválidos.
 
     [Teardown]                Thinking And Take Screenshot    1
 
