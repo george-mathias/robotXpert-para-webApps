@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation        Ações de componentes genéricos
 
-
 *** Keywords ***
 Toaster Text Should Be
     [Arguments]    ${expect-text}
