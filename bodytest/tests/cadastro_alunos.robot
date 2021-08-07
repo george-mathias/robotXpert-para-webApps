@@ -24,7 +24,6 @@ Não deve permitir email duplicado
     &{student}    Create Dictionary    name=Nadaly Farache    email=nadaly@gmail.com    age=37    weight=45    feet_tall=1.45
 
     Insert Student            ${student}
-
     Go To Students
     Go To Form Student
     New Student               ${student}
