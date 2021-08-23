@@ -7,6 +7,9 @@ Go To Form Student
     # Wait For Elements State    //h1[text()="Novo aluno"]    visible    5
     Wait For Elements State    h1 >> text=Novo aluno    visible    5
 
+Submit Student Form
+    Click        xpath=//button[contains(text(), "Salvar")]
+    
 New Student
     [Arguments]    ${student}
     Fill Text    css=input[name=name]        ${student.name}
@@ -15,4 +18,4 @@ New Student
     Fill Text    css=input[name=weight]      ${student.weight}
     Fill Text    css=input[name=feet_tall]   ${student.feet_tall}
 
-    Click        xpath=//button[contains(text(), "Salvar")]
+    Submit Student Form

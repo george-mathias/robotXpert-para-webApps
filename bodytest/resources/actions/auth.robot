@@ -12,10 +12,6 @@ Login With
     Fill Text    css=input[id=password]    ${pass}
     Click        text=Entrar
 
-Alert Text Should Be
-    [Arguments]    ${expect-text}
-    Wait For Elements State    css=form span >> text=${expect-text}    visible    5
-
 Close Browser
     Take Screenshot
     # Close Browser

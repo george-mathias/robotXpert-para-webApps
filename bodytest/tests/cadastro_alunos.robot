@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation        Cadastro de alunos
 
-Resource            ../resources/base.robot
+Library              Collections
+
+Resource             ../resources/base.robot
 
 Suite Setup          Start Admin Session
 
@@ -30,3 +32,26 @@ Não deve permitir email duplicado
     Toaster Text Should Be    Email já existe no sistema.
 
     [Teardown]                Thinking And Take Screenshot    1
+
+Todos os campos devem ser obrigatórios
+    [Tags]    temp
+    @{expected_alerts}    Set Variable    Nome é obrigatório    O e-mail é obrigatório    idade é obrigatória    o peso é obrigatório    a Altura é obrigatória
+    @{got_alerts}         Create List
+
+    Go To Students
+    Go To Form Student
+    Submit Student Form
+    
+    # FOR  ${item}  IN  @{expected_alerts}
+    #     Alert Text Should Be    ${item}
+    # END
+
+    FOR    ${index}    IN RANGE    1    6    
+        ${span}               Get Required Alerts    ${index}
+        Append To List        ${got_alerts}    ${span}         
+    END
+
+    Log To Console    \nLista Esperada: ${expected_alerts}
+    Log To Console    \nLista Obtida: ${got_alerts}
+
+    Lists Should Be Equal    ${expected_alerts}    ${got_alerts}
