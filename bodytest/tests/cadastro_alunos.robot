@@ -34,7 +34,6 @@ Não deve permitir email duplicado
     [Teardown]                Thinking And Take Screenshot    1
 
 Todos os campos devem ser obrigatórios
-    [Tags]    temp
     @{expected_alerts}    Set Variable    Nome é obrigatório    O e-mail é obrigatório    idade é obrigatória    o peso é obrigatório    a Altura é obrigatória
     @{got_alerts}         Create List
 
@@ -55,3 +54,19 @@ Todos os campos devem ser obrigatórios
     Log To Console    \nLista Obtida: ${got_alerts}
 
     Lists Should Be Equal    ${expected_alerts}    ${got_alerts}
+
+
+Validate Number Type
+    [Tags]        temp
+    [Template]    Check Numeric Field On Student Form
+    css=input[name=age]
+    css=input[name=weight]
+    css=input[name=feet_tall]
+
+
+*** Keywords ***
+Check Numeric Field On Student Form
+    [Arguments]    ${element}
+    Go To Students
+    Go To Form Student
+    Field Should Be Number    ${element}
