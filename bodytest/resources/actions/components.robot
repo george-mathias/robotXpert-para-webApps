@@ -17,8 +17,8 @@ Get Required Alerts
     
     [Return]    ${span}
 
-Field Should Be Number
-    [Arguments]    ${element}
+Field Should Be Type
+    [Arguments]    ${element}    ${type}
 
     ${attribute}    Get Attribute    ${element}    type
-    Should Be Equal    ${attribute}    number
+    Should Be Equal    ${attribute}    ${type}

@@ -58,15 +58,21 @@ Todos os campos devem ser obrigatórios
 
 Validate Number Type
     [Tags]        temp
-    [Template]    Check Numeric Field On Student Form
-    css=input[name=age]
-    css=input[name=weight]
-    css=input[name=feet_tall]
+    [Template]    Check Type Field On Student Form
+    ${AGE_FIELD}            number
+    ${WEIGHT_FIELD}         number
+    ${FEET-TALL_FIELD}      number
+
+Validate Email Type
+    [Tags]    temp
+    [Template]    Check Type Field On Student Form
+
+    ${EMAIL_FIELD}    email
 
 
 *** Keywords ***
-Check Numeric Field On Student Form
-    [Arguments]    ${element}
+Check Type Field On Student Form
+    [Arguments]    ${element}    ${type}
     Go To Students
     Go To Form Student
-    Field Should Be Number    ${element}
+    Field Should Be Type    ${element}    ${type}
