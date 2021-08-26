@@ -1,14 +1,13 @@
 *** Settings ***
 Documentation        Cadastro de alunos
 
-Library              Collections
-
 Resource             ../resources/base.robot
 
 Suite Setup          Start Admin Session
+Test Teardown        Take Screenshot
 
 *** Test Cases ***
-Novo aluno
+Cenário: Novo aluno
 
     &{student}    Create Dictionary    name=Nadaly Farache    email=nadaly@gmail.com    age=37    weight=45    feet_tall=1.45
 
@@ -20,7 +19,7 @@ Novo aluno
 
     [Teardown]                Thinking And Take Screenshot    1
 
-Não deve permitir email duplicado
+Cenário: Não deve permitir email duplicado
     [Tags]    dup
 
     &{student}    Create Dictionary    name=Nadaly Farache    email=nadaly@gmail.com    age=37    weight=45    feet_tall=1.45
@@ -33,7 +32,7 @@ Não deve permitir email duplicado
 
     [Teardown]                Thinking And Take Screenshot    1
 
-Todos os campos devem ser obrigatórios
+Cenário: Todos os campos devem ser obrigatórios
     @{expected_alerts}    Set Variable    Nome é obrigatório    O e-mail é obrigatório    idade é obrigatória    o peso é obrigatório    a Altura é obrigatória
     @{got_alerts}         Create List
 
@@ -56,19 +55,25 @@ Todos os campos devem ser obrigatórios
     Lists Should Be Equal    ${expected_alerts}    ${got_alerts}
 
 
-Validate Number Type
-    [Tags]        temp
+Cenário: Validar Campos do Tipo Numerico
     [Template]    Check Type Field On Student Form
     ${AGE_FIELD}            number
     ${WEIGHT_FIELD}         number
     ${FEET-TALL_FIELD}      number
 
-Validate Email Type
-    [Tags]    temp
+Cenario: Validar Campo do Tipo Email
     [Template]    Check Type Field On Student Form
 
     ${EMAIL_FIELD}    email
 
+Cenario: Menor de 14 Anos Nao Pode Fazer Cadastro
+    [Tags]    temp
+    &{student}    Create Dictionary    name=Livia da Silva    email=liviadasilva@yahoo.com    age=13    weight=50    feet_tall=1.65
+
+    Go To Students
+    Go To Form Student
+    New Student    ${student}
+    Alert Text Should Be    A idade deve ser maior ou igual 14 anos
 
 *** Keywords ***
 Check Type Field On Student Form

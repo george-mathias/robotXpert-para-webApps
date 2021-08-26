@@ -7,43 +7,43 @@ Suite Setup          Start Browser Session
 Test Teardown        Take Screenshot
 
 *** Test Cases ***
-Login do Administrador
+Cenário: Login do Administrador
     Go To Login Page
     Login With                  admin@bodytest.com    pwd123       
     User Should Be Logged In    Administrador
     
     [Teardown]                  Clear Local Storage And Take Screenshot
 
-Senha incorreta
+Cenário: Senha incorreta
     Go To Login Page
     Login With                admin@bodytest.com    abc123    
     Toaster Text Should Be    Usuário e/ou senha inválidos.
 
     [Teardown]                Thinking And Take Screenshot    1
 
-Email nao cadastrado
+Cenário: Email nao cadastrado
     Go To Login Page
     Login With                fulano@bodytest.com    abc123    
     Toaster Text Should Be    Usuário e/ou senha inválidos.
 
     [Teardown]                Thinking And Take Screenshot    1
 
-Email incorreto
+Cenário: Email incorreto
     Go To Login Page
     Login With                admin&bodytest.com    abd123
     Alert Text Should Be      informe um e-mail válido
 
-Senha nao informada
+Cenário: Senha nao informada
     Go To Login Page
     Login With                admin@bodytest.com    ${EMPTY}
     Alert Text Should Be      A senha é obrigatória
 
-Email nao informado
+Cenário: Email nao informado
     Go To Login Page
     Login With                  ${EMPTY}    pwd123
     Alert Text Should Be        O e-mail é obrigatório
 
-Email e senha nao informados
+Cenário: Email e senha nao informados
     Go To Login Page
     Login With                  ${EMPTY}    ${EMPTY}
     Alert Text Should Be        O e-mail é obrigatório

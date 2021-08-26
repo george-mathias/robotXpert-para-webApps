@@ -2,6 +2,7 @@
 Documentation        arquivo base do projeto de automação
 
 Library              Browser
+Library              Collections
 Library              ./libs/DeloreanLibrary.py
 
 Resource             ./actions/auth.robot
