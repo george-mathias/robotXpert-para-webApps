@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation        ações de autorização
 
+
 *** Keywords ***
 Go To Login Page
     Go To    https://bodytest-web-george.herokuapp.com

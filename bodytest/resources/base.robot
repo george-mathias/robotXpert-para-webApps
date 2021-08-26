@@ -11,9 +11,13 @@ Resource             ./actions/students.robot
 Resource             ./actions/components.robot
 
 
+*** Variables ***
+
+${browser}        chromium
+
 *** Keywords ***
 Start Browser Session
-    New Browser     chromium    false
+    New Browser     ${browser}    false
     New Page        about:blank
 
 Start Admin Session

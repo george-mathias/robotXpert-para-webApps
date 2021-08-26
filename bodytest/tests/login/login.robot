@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation        Suíte de testes da ação login
 
-Resource             ../resources/base.robot
+Resource             ${EXECDIR}/resources/base.robot
 
 Suite Setup          Start Browser Session
 Test Teardown        Take Screenshot
