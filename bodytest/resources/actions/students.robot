@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation        ações da feature de gestão de alunos
+Library    Browser
 
 *** Variables ***
 ${NAME_FIELD}         css=input[name=name]     
@@ -26,3 +27,24 @@ New Student
     Fill Text      ${FEET-TALL_FIELD}   ${student.feet_tall}
 
     Submit Student Form
+
+Request Removal By Email
+    [Arguments]    ${email}
+
+    Click    xpath=//td[contains(text(), "${email}")]/../td//button[@id="trash"]
+
+Confirm Removal
+    Click    text=SIM, pode apagar!
+
+Cancel Removal
+    Click    text=NÃO
+
+Student Should Not visible
+    [Arguments]    ${email}
+
+    Wait For Elements State    xpath=//td[contains(text(), "${email}")]    detached    5
+
+Student Should Be visible
+    [Arguments]    ${email}
+
+    Wait For Elements State    xpath=//td[contains(text(), "${email}")]    visible    5
