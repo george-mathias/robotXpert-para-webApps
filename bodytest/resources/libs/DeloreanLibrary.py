@@ -25,6 +25,18 @@ class DeloreanLibrary():
         conn.commit()
         conn.close()
 
+    def remove_student_by_name(self, name):
+
+        query = "delete from students where name LIKE '%{}%'".format(name)
+        info(query)
+
+        conn = self.connect_database()
+
+        cur = conn.cursor()
+        cur.execute(query)
+        conn.commit()
+        conn.close()
+
     
     def insert_student(self, student):
 
